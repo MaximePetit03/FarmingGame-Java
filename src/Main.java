@@ -1,18 +1,19 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    @Override
-    public void start(Stage primaryStage) {
-        Label label = new Label("Test");
-        StackPane root = new StackPane(label);
-        Scene scene = new Scene(root, 400, 300);
 
-        primaryStage.setTitle("JavaFX Test");
-        primaryStage.setScene(scene);
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
+        Parent root = loader.load();
+
+        primaryStage.setTitle("Farm My Farm");
+        primaryStage.setScene(new Scene(root, 1080, 720));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -20,5 +21,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-
-
