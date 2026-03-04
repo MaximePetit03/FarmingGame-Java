@@ -36,7 +36,6 @@ public class CultivableField {
     // MÉTHODE POUR RÉCOLTER
     public String harvest() {
         if (!isReady) {
-            System.out.println("Pas encore");
             return null;
         }
 

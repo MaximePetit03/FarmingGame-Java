@@ -5,85 +5,100 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MainController {
 
     @FXML private Label moneyLabel;
     @FXML private Label inventoryLabel;
 
-    // Listes pour les 5 barres de progression des graines
     @FXML private ProgressBar bar0, bar1, bar2, bar3, bar4;
 
     private ProgressBar[] progressBars;
     private List<CultivableField> fields = new ArrayList<>();
+
+    // Valeurs par défaut si aucun fichier n'existe
     private int money = 500;
-    private int cornInStock = 10; // L'inventaire
+    private int cornInStock = 10;
 
     @FXML
     public void initialize() {
+        loadGame();
+
         progressBars = new ProgressBar[]{bar0, bar1, bar2, bar3, bar4};
 
-        // Créer les 5 objets de terrain
         for (int i = 0; i < 5; i++) {
             fields.add(new CultivableField());
         }
 
-        // Boucle de jeu
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             for (int i = 0; i < 5; i++) {
                 fields.get(i).incrementGrowth();
                 progressBars[i].setProgress(fields.get(i).getGrowthProgress());
             }
-            updateUI();
+            update();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
-    @FXML private void handleField0() { processClick(0); }
-    @FXML private void handleField1() { processClick(1); }
-    @FXML private void handleField2() { processClick(2); }
-    @FXML private void handleField3() { processClick(3); }
-    @FXML private void handleField4() { processClick(4); }
+    @FXML private void handleField0() { harvestSystem(0); }
+    @FXML private void handleField1() { harvestSystem(1); }
+    @FXML private void handleField2() { harvestSystem(2); }
+    @FXML private void handleField3() { harvestSystem(3); }
+    @FXML private void handleField4() { harvestSystem(4); }
 
-    private void processClick(int index) {
+    private void harvestSystem(int index) {
         CultivableField field = fields.get(index);
 
         if (!field.isOccupied()) {
-            cornInStock -= 1;
-            field.plant("Corn");
+            if (cornInStock > 0) {
+                cornInStock -= 1;
+                field.plant("Corn");
+            } else {
+                System.out.println("Plus de graines !");
+            }
         } else if (field.isReady()) {
             String crop = field.harvest();
             if (crop != null) {
-                cornInStock += 2; // On ajoute à l'inventaire
+                cornInStock += 2;
             }
         }
-        updateUI();
+        update();
     }
 
-    private void updateUI() {
+    private void update() {
         moneyLabel.setText("Richesse: " + money + " euros \ndans la France à Macron");
         inventoryLabel.setText("Mais en stock: " + cornInStock);
     }
 
+    // Sauvegarde
     public void saveGame() {
         try (PrintWriter writer = new PrintWriter("save.txt")) {
-            // écrit les données
-            writer.println("La monnaie" + money);
-            writer.println("Quantité de mais" + cornInStock);
-
-            // Enregistre les 5 parcelles (0 = vide, 1 = occupé)
-            for (CultivableField field : fields) {
-                writer.println(field.isOccupied() ? "1" : "0");
-            }
-
+            writer.println(money);
+            writer.println(cornInStock);
             System.out.println("Partie sauvegardée");
         } catch (IOException e) {
-            System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+            System.err.println("Erreur de sauvegarde : " + e.getMessage());
+        }
+    }
+
+    // CHargement du jeu
+    private void loadGame() {
+        File file = new File("save.txt");
+        if (!file.exists()) return;
+
+        try (Scanner scanner = new Scanner(file)) {
+            if (scanner.hasNextInt()) money = scanner.nextInt();
+            if (scanner.hasNextInt()) cornInStock = scanner.nextInt();
+            System.out.println("Données chargées");
+        } catch (Exception e) {
+            System.err.println("Erreur de chargement : " + e.getMessage());
         }
     }
 }
