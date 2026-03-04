@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +59,31 @@ public class MainController {
         } else if (field.isReady()) {
             String crop = field.harvest();
             if (crop != null) {
-                cornInStock += 10; // On ajoute à l'inventaire
+                cornInStock += 2; // On ajoute à l'inventaire
             }
         }
         updateUI();
     }
 
     private void updateUI() {
-        moneyLabel.setText("Balance: " + money + " euros dans la France de Macron");
+        moneyLabel.setText("Richesse: " + money + " euros \ndans la France à Macron");
         inventoryLabel.setText("Mais en stock: " + cornInStock);
+    }
+
+    public void saveGame() {
+        try (PrintWriter writer = new PrintWriter("save.txt")) {
+            // écrit les données
+            writer.println("La monnaie" + money);
+            writer.println("Quantité de mais" + cornInStock);
+
+            // Enregistre les 5 parcelles (0 = vide, 1 = occupé)
+            for (CultivableField field : fields) {
+                writer.println(field.isOccupied() ? "1" : "0");
+            }
+
+            System.out.println("Partie sauvegardée");
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+        }
     }
 }

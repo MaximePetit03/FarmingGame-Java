@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 
     @Override
@@ -11,9 +12,16 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Main.fxml"));
         Parent root = loader.load();
 
+        MainController controller = loader.getController();
+
         primaryStage.setTitle("Farm My Farm");
         primaryStage.setScene(new Scene(root, 1080, 720));
-        primaryStage.setResizable(false);
+
+        // Save quand on ferme la fenêtre
+        primaryStage.setOnCloseRequest(event -> {
+            controller.saveGame();
+        });
+
         primaryStage.show();
     }
 
