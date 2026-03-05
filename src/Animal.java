@@ -1,7 +1,7 @@
 public abstract class Animal extends Item {
     public boolean isFed = false;
     public double productionProgress = 0.0;
-    public boolean isReadyToCollect = false;
+    public boolean isReady = false;
 
     public Animal(String name, int buyPrice, int sellPrice) {
         super(name, buyPrice, sellPrice);
@@ -26,30 +26,30 @@ public abstract class Animal extends Item {
     }
 
     public void incrementProduction() {
-        if (this.isFed && !this.isReadyToCollect) {
+        if (this.isFed && !this.isReady) {
             this.productionProgress += getProductionSpeed();
             if (this.productionProgress >= 1.0) {
                 this.productionProgress = 1.0;
-                this.isReadyToCollect = true;
+                this.isReady = true;
             }
         }
     }
 
-    public void collectProduct(MainController game) {
-        if (this.isReadyToCollect) {
+    /*public void collectProduct(MainController game) {
+        if (this.isReady) {
             if (this instanceof Cow) {
                 game.milkStock += 1;
-                System.out.println("Lait récupérer");
             }
+
             this.isFed = false;
-            this.isReadyToCollect = false;
+            this.isReady = false;
             this.productionProgress = 0.0;
         }
-    }
+    } */
 
     // Getters
     public double getProductionProgress() { return productionProgress; }
-    public boolean isReady() { return isReadyToCollect; }
+    public boolean isReady() { return isReady; }
 }
 
 class Cow extends Animal {

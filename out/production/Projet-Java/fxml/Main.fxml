@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
@@ -30,7 +31,7 @@
    </left>
 
    <center>
-      <TabPane tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="Cultures">
                <content>
