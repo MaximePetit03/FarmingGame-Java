@@ -8,7 +8,7 @@
    <top>
       <HBox spacing="20" style="-fx-padding: 10; -fx-border-color: #eeeeee; -fx-border-width: 0 0 1 0;">
          <children>
-            <Label style="-fx-font-weight: bold;" text="FARM MY FARM" />
+            <Label style="-fx-font-weight: bold; -fx-font-size: 18;" text="FARM MY FARM" />
          </children>
       </HBox>
    </top>
@@ -19,61 +19,66 @@
                <content>
                   <HBox spacing="20.0" style="-fx-padding: 20;">
                      <children>
-
-                        <VBox prefWidth="250.0" spacing="15.0" style="-fx-background-color: #fafafa; -fx-padding: 20; -fx-border-color: #dddddd; -fx-border-radius: 5;">
+                        <VBox prefWidth="320.0" spacing="10.0" style="-fx-background-color: #fafafa; -fx-padding: 20; -fx-border-color: #dddddd; -fx-border-radius: 5;">
                            <children>
-                              <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="STATISTICS" />
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="INVENTAIRE" />
                               <Separator />
-                              <Label fx:id="moneyLabel" style="-fx-font-size: 14;" text="Balance: 500$" />
-                              <Label fx:id="inventoryLabel" style="-fx-font-size: 14;" text="Corn in stock: 0" />
+                              <Label fx:id="moneyLabel" style="-fx-font-size: 14; -fx-text-fill: #2ecc71;" text="Richesse: 500 émeraudes" />
+                              <Separator />
+
+                              <Button fx:id="selectCornBtn" maxWidth="Infinity" onAction="#selectCorn" text="Maïs: 0" style="-fx-alignment: CENTER_LEFT; -fx-padding: 10;"/>
+                              <Button fx:id="cornSeedsBtn" maxWidth="Infinity" onAction="#selectCorn" text="Graines Maïs: 10" style="-fx-alignment: CENTER_LEFT; -fx-padding: 10;"/>
+
+                              <Separator />
+
+                              <Button fx:id="selectWaterMelonBtn" maxWidth="Infinity" onAction="#selectWaterMelon" text="Pastèque: 0" style="-fx-alignment: CENTER_LEFT; -fx-padding: 10;"/>
+                              <Button fx:id="waterMelonSeedsBtn" maxWidth="Infinity" onAction="#selectWaterMelon" text="Graines Pastèque: 2" style="-fx-alignment: CENTER_LEFT; -fx-padding: 10;"/>
                            </children>
                         </VBox>
 
-                        <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS" spacing="20.0">
+                        <VBox alignment="TOP_CENTER" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="MY FIELDS" />
-                              <GridPane alignment="CENTER" hgap="15" vgap="15">
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="MES PARCELLES" />
+                              <GridPane alignment="CENTER" hgap="20" vgap="20">
                                  <children>
-                                    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <VBox alignment="CENTER" spacing="8" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #ffffff; -fx-border-radius: 5;" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                        <children>
-                                          <ProgressBar fx:id="bar0" prefWidth="100" progress="0.0" />
-                                          <Button onAction="#handleField0" style="-fx-background-color: white; -fx-border-color: gray;" text="Action" />
+                                          <Button fx:id="btn0" onAction="#handleField0" prefWidth="140" text="Vide" />
+                                          <ProgressBar fx:id="bar0" prefWidth="140" progress="0.0" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <VBox alignment="CENTER" spacing="8" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #ffffff; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                        <children>
-                                          <ProgressBar fx:id="bar1" prefWidth="100" progress="0.0" />
-                                          <Button onAction="#handleField1" style="-fx-background-color: white; -fx-border-color: gray;" text="Action" />
+                                          <Button fx:id="btn1" onAction="#handleField1" prefWidth="140" text="Vide" />
+                                          <ProgressBar fx:id="bar1" prefWidth="140" progress="0.0" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <VBox alignment="CENTER" spacing="8" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #ffffff; -fx-border-radius: 5;" GridPane.columnIndex="2" GridPane.rowIndex="0">
                                        <children>
-                                          <ProgressBar fx:id="bar2" prefWidth="100" progress="0.0" />
-                                          <Button onAction="#handleField2" style="-fx-background-color: white; -fx-border-color: gray;" text="Action" />
+                                          <Button fx:id="btn2" onAction="#handleField2" prefWidth="140" text="Vide" />
+                                          <ProgressBar fx:id="bar2" prefWidth="140" progress="0.0" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: white;" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <VBox alignment="CENTER" spacing="8" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #ffffff; -fx-border-radius: 5;" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                        <children>
-                                          <ProgressBar fx:id="bar3" prefWidth="100" progress="0.0" />
-                                          <Button onAction="#handleField3" style="-fx-background-color: white; -fx-border-color: gray;" text="Action" />
+                                          <Button fx:id="btn3" onAction="#handleField3" prefWidth="140" text="Vide" />
+                                          <ProgressBar fx:id="bar3" prefWidth="140" progress="0.0" />
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" spacing="5" style="-fx-border-color: #cccccc; -fx-padding: 10; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <VBox alignment="CENTER" spacing="8" style="-fx-border-color: #cccccc; -fx-padding: 15; -fx-background-color: #ffffff; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
-                                          <ProgressBar fx:id="bar4" prefWidth="100" progress="0.0" />
-                                          <Button onAction="#handleField4" style="-fx-background-color: white; -fx-border-color: gray;" text="Action" />
+                                          <Button fx:id="btn4" onAction="#handleField4" prefWidth="140" text="Vide" />
+                                          <ProgressBar fx:id="bar4" prefWidth="140" progress="0.0" />
                                        </children>
                                     </VBox>
                                  </children>
                               </GridPane>
                            </children>
                         </VBox>
-
                      </children>
                   </HBox>
                </content>
             </Tab>
-            <Tab fx:id="pastureTab" disable="true" text="Pasture" />
             <Tab text="Market" />
          </tabs>
       </TabPane>
