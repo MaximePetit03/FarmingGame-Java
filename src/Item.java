@@ -1,7 +1,7 @@
 public abstract class Item {
-    String name;
-    int buyPrice;
-    int sellPrice;
+    public String name;
+    public int buyPrice;
+    public int sellPrice;
 
     public Item(String name, int buyPrice, int sellPrice) {
         this.name = name;

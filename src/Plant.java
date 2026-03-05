@@ -1,16 +1,28 @@
-public abstract class Plant {
+public abstract class Plant extends Item{
     public int seedPrice;
     public int plantValue;
-    public abstract String getName();
+
+    public Plant(String name, int buyPrice, int sellPrice) {
+        super(name, buyPrice, sellPrice);
+    }
+
     public abstract double getGrowthSpeed();
 }
 
-class Corn extends Plant {
-    @Override public String getName() { return "Corn"; }
-    @Override public double getGrowthSpeed() { return 0.1; }
+class Wheat extends Plant {
+    public Wheat() {
+        super("wheat", 5, 12);
+    }
+
+    @Override
+    public double getGrowthSpeed() { return 0.1; }
 }
 
 class WaterMelon extends Plant {
-    @Override public String getName() { return "waterMelon"; }
-    @Override public double getGrowthSpeed() { return 0.05; }
+    public WaterMelon() {
+        super("waterMelon", 15, 40);
+    }
+
+    @Override
+    public double getGrowthSpeed() { return 0.05; }
 }
