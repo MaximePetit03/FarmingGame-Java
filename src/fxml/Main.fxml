@@ -1,54 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
-
-   <top>
-      <HBox style="-fx-padding: 15; -fx-background-color: #2c3e50;">
+<HBox prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
          <children>
-            <Label style="-fx-font-weight: bold; -fx-font-size: 20; -fx-text-fill: white;" text="FARM MY FARM" />
-         </children>
-      </HBox>
-   </top>
+            <Label fx:id="moneyLabel" style="-fx-text-fill: #f1c40f; -fx-font-size: 18; -fx-font-weight: bold;" text="Richesse: 25 émeraudes" />
 
-   <left>
-      <VBox prefWidth="250.0" spacing="15.0" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #ddd; -fx-border-width: 0 1 0 0;">
-         <children>
-            <Label style="-fx-font-weight: bold; -fx-font-size: 16;" text="INVENTAIRE" />
-            <Separator />
-            <Label fx:id="moneyLabel" style="-fx-font-size: 15; -fx-text-fill: #27ae60; -fx-font-weight: bold;" text="Richesse: 25" />
-            <Separator />
-            <Button fx:id="selectWheatBtn" maxWidth="Infinity" onAction="#selectWheat" text="Blé: 0" />
-            <Button fx:id="wheatSeedsBtn" maxWidth="Infinity" onAction="#selectWheat" text="Graines Blé: 10" />
-            <Separator />
-            <Button fx:id="selectWaterMelonBtn" maxWidth="Infinity" onAction="#selectWaterMelon" text="Pastèque: 0" />
-            <Button fx:id="waterMelonSeedsBtn" maxWidth="Infinity" onAction="#selectWaterMelon" text="Graines Pastèque: 2" />
+            <Separator style="-fx-background-color: #34495e;" />
+
+            <Label style="-fx-text-fill: #bdc3c7; -fx-font-weight: bold;" text="--- STOCKS &amp; PRODUITS ---" />
+            <Button fx:id="selectWheatBtn" onAction="#selectWheat" prefHeight="40" prefWidth="200" style="-fx-font-size: 14;" text="Blé: 0" />
+            <Button fx:id="selectWaterMelonBtn" onAction="#selectWaterMelon" prefHeight="40" prefWidth="200" style="-fx-font-size: 14;" text="Pastèque: 0" />
+            <Button fx:id="milkStockBtn" prefHeight="40" prefWidth="200" style="-fx-font-size: 14; -fx-base: #ecf0f1;" text="Lait: 0" />
+
+            <Separator style="-fx-background-color: #34495e;" />
+
+            <Label style="-fx-text-fill: #bdc3c7; -fx-font-weight: bold;" text="--- GRAINES ---" />
+            <Button fx:id="wheatSeedsBtn" prefHeight="40" prefWidth="200" text="Graines Blé: 10" />
+            <Button fx:id="waterMelonSeedsBtn" prefHeight="40" prefWidth="200" text="Graines Pastèque: 2" />
          </children>
       </VBox>
-   </left>
 
-   <center>
-      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
          <tabs>
             <Tab text="Cultures">
                <content>
-                  <StackPane><fx:include fx:id="cultivableField" source="CultivableField.fxml" /></StackPane>
+                  <fx:include fx:id="cultivableField" source="CultivableField.fxml" />
                </content>
             </Tab>
             <Tab text="Élevage">
                <content>
-                  <StackPane><fx:include fx:id="animalArea" source="Animal.fxml" /></StackPane>
+                  <fx:include fx:id="animalArea" source="Animal.fxml" />
                </content>
             </Tab>
             <Tab text="Marché">
                <content>
-                  <StackPane><fx:include fx:id="marketArea" source="Market.fxml" /></StackPane>
+                  <fx:include fx:id="marketArea" source="Market.fxml" />
                </content>
             </Tab>
          </tabs>
       </TabPane>
-   </center>
-</BorderPane>
+   </children>
+</HBox>

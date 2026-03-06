@@ -4,7 +4,6 @@ public class Market {
     private int unitPrice = 0;
     private int totalPrice = 0;
 
-
     public void incrementQuantity() {
         quantity += 1;
         updateTotalPrice();
@@ -35,25 +34,12 @@ public class Market {
         if (game.money >= totalPrice && selectedItem != null) {
             boolean itemProcessed = false;
 
-            if (selectedItem.equals("WheatSeed")) {
-                game.wheatSeeds += quantity;
-                itemProcessed = true;
-            } else if (selectedItem.equals("WaterMelonSeed")) {
-                game.waterMelonSeeds += quantity;
-                itemProcessed = true;
-            } else if (selectedItem.equals("WheatFood")) {
-                game.wheatStock += quantity;
-                itemProcessed = true;
-            } else if (selectedItem.equals("WaterMelonFood")) {
-                game.waterMelonStock += quantity;
-                itemProcessed = true;
-            } else if (selectedItem.equals("Cow")) {
-                for (int i = 0; i < 5; i++) {
-                    // Ici, il faudrait que la liste 'animals' de MainController soit accessible
-                    // Pour l'instant, simplifions : l'argent n'est retiré que si l'achat est possible
-                    itemProcessed = true;
-                }
-            }
+            if (selectedItem.equals("WheatSeed")) { game.wheatSeeds += quantity; itemProcessed = true; }
+            else if (selectedItem.equals("WaterMelonSeed")) { game.waterMelonSeeds += quantity; itemProcessed = true; }
+            else if (selectedItem.equals("WheatFood")) { game.wheatStock += quantity; itemProcessed = true; }
+            else if (selectedItem.equals("WaterMelonFood")) { game.waterMelonStock += quantity; itemProcessed = true; }
+            else if (selectedItem.equals("Cow")) { game.cowInventory += quantity; itemProcessed = true; }
+            else if (selectedItem.equals("Milk")) { game.milkStock += quantity; itemProcessed = true; } // Achat de lait
 
             if (itemProcessed) {
                 game.money -= totalPrice;
@@ -65,19 +51,11 @@ public class Market {
     public void confirmSale(MainController game) {
         boolean selItem = false;
 
-        if (selectedItem.equals("WheatSeed") && game.wheatSeeds >= quantity) {
-            game.wheatSeeds -= quantity;
-            selItem = true;
-        } else if (selectedItem.equals("WaterMelonSeed") && game.waterMelonSeeds >= quantity) {
-            game.waterMelonSeeds -= quantity;
-            selItem = true;
-        } else if (selectedItem.equals("WheatFood") && game.wheatStock >= quantity) {
-            game.wheatStock -= quantity;
-            selItem = true;
-        } else if (selectedItem.equals("WaterMelonFood") && game.waterMelonStock >= quantity) {
-            game.waterMelonStock -= quantity;
-            selItem = true;
-        }
+        if (selectedItem.equals("WheatSeed") && game.wheatSeeds >= quantity) { game.wheatSeeds -= quantity; selItem = true; }
+        else if (selectedItem.equals("WaterMelonSeed") && game.waterMelonSeeds >= quantity) { game.waterMelonSeeds -= quantity; selItem = true; }
+        else if (selectedItem.equals("WheatFood") && game.wheatStock >= quantity) { game.wheatStock -= quantity; selItem = true; }
+        else if (selectedItem.equals("WaterMelonFood") && game.waterMelonStock >= quantity) { game.waterMelonStock -= quantity; selItem = true; }
+        else if (selectedItem.equals("Milk") && game.milkStock >= quantity) { game.milkStock -= quantity; selItem = true; } // Vente de lait
 
         if (selItem) {
             game.money += totalPrice;

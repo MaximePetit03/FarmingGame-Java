@@ -14,28 +14,28 @@ public class MarketController {
         this.mainGame = game;
     }
 
-    // SÉLECTION DES PRODUITS
+    // --- SÉLECTION DES PRODUITS ---
 
     @FXML private void selectWheatSeed() {
-        market.selectProduct("WheatSeed", 5); // Identifiant unique pour la graine
+        market.selectProduct("WheatSeed", 5);
         itemNameLabel.setText("Graines de Blé");
         updateUI();
     }
 
     @FXML private void selectWaterMelonSeed() {
-        market.selectProduct("WaterMelonSeed", 15); // Identifiant unique pour la graine
+        market.selectProduct("WaterMelonSeed", 15);
         itemNameLabel.setText("Graines de Pastèque");
         updateUI();
     }
 
     @FXML private void selectWheatFood() {
-        market.selectProduct("WheatFood", 10); // "Food" pour le blé récolté
+        market.selectProduct("WheatFood", 10);
         itemNameLabel.setText("Blé (Récolte)");
         updateUI();
     }
 
     @FXML private void selectWaterMelonFood() {
-        market.selectProduct("WaterMelonFood", 25); // "Food" pour la pastèque récoltée
+        market.selectProduct("WaterMelonFood", 25);
         itemNameLabel.setText("Pastèque (Récolte)");
         updateUI();
     }
@@ -46,7 +46,14 @@ public class MarketController {
         updateUI();
     }
 
-    // BOUTONS
+    @FXML private void selectMilk() {
+        market.selectProduct("Milk", 40);
+        itemNameLabel.setText("Lait (Seau)");
+        updateUI();
+    }
+
+    // --- BOUTONS D'ACTION ---
+
     @FXML private void plusQuantity() {
         market.incrementQuantity();
         updateUI();
@@ -60,6 +67,7 @@ public class MarketController {
     @FXML
     private void confirmPurchase() {
         if (mainGame != null) {
+            // C'est ici que la classe Market appellera mainGame.addAnimalToEnclosure(new Cow())
             market.confirmPurchase(mainGame);
             mainGame.saveGame();
             updateUI();

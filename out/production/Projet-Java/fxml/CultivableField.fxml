@@ -2,17 +2,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" spacing="40.0" style="-fx-background-color: #8D6E63;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label style="-fx-font-weight: bold; -fx-font-size: 22;" text="MES PARCELLES" />
+        <Label style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="MES CULTURES" />
 
         <GridPane alignment="CENTER" hgap="15" vgap="15">
             <children>
                 <Button fx:id="btn0" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <Button fx:id="btn1" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <Button fx:id="btn2" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
                 <Button fx:id="btn3" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <Button fx:id="btn4" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="btn5" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>
