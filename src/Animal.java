@@ -67,7 +67,9 @@ class Cow extends Animal {
     @Override
     public void collectProduct(MainController game) {
         if (this.isReady) {
-            game.milkStock += 1;
+            int randomMilk = (int)(Math.random() * 3 + 1);
+
+            game.milkStock += randomMilk;
             this.productionProgress = 0.0;
             this.isReady = false;
             this.isFed = false;

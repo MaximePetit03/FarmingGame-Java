@@ -1,48 +1,73 @@
 public class Market {
     private Object selectedItem;
-    private int quantity = 1;
-    private int unitPrice = 0;
-    private int totalPrice = 0;
 
-    public void incrementQuantity() {
-        quantity += 1;
-        updateTotalPrice();
+    // Variables séparées
+    private int buyQuantity = 1;
+    private int sellQuantity = 1;
+
+    private int unitBuyPrice = 0;
+    private int unitSellPrice = 0;
+
+    private int totalBuyPrice = 0;
+    private int totalSellPrice = 0;
+
+    // GESTION ACHAT
+    public void incrementBuyQuantity() {
+        buyQuantity += 1;
+        updatePrices();
     }
-
-    public void decrementQuantity() {
-        if (quantity > 1) {
-            quantity -= 1;
-            updateTotalPrice();
+    public void decrementBuyQuantity() {
+        if (buyQuantity > 1) {
+            buyQuantity -= 1;
+            updatePrices();
         }
     }
 
-    private void updateTotalPrice() {
-        this.totalPrice = this.quantity * this.unitPrice;
+    // GESTION VENTE
+    public void incrementSellQuantity() {
+        sellQuantity += 1;
+        updatePrices();
+    }
+    public void decrementSellQuantity() {
+        if (sellQuantity > 1) {
+            sellQuantity -= 1;
+            updatePrices();
+        }
     }
 
-    public void selectProduct(Object item, int price) {
-        selectedItem = item;
-        unitPrice = price;
-        quantity = 1;
-        updateTotalPrice();
+    private void updatePrices() {
+        this.totalBuyPrice = this.buyQuantity * this.unitBuyPrice;
+        this.totalSellPrice = this.sellQuantity * this.unitSellPrice;
     }
 
-    public int getQuantity() { return quantity; }
-    public int getTotalPrice() { return totalPrice; }
+    // On demande maintenant les DEUX prix (achat et vente)
+    public void selectProduct(Object item, int buyPrice, int sellPrice) {
+        this.selectedItem = item;
+        this.unitBuyPrice = buyPrice;
+        this.unitSellPrice = sellPrice;
+        this.buyQuantity = 1;
+        this.sellQuantity = 1;
+        updatePrices();
+    }
+
+    public int getBuyQuantity() { return buyQuantity; }
+    public int getSellQuantity() { return sellQuantity; }
+    public int getTotalBuyPrice() { return totalBuyPrice; }
+    public int getTotalSellPrice() { return totalSellPrice; }
 
     public void confirmPurchase(MainController game) {
-        if (game.money >= totalPrice && selectedItem != null) {
+        if (game.money >= totalBuyPrice && selectedItem != null) {
             boolean itemProcessed = false;
 
-            if (selectedItem.equals("WheatSeed")) { game.wheatSeeds += quantity; itemProcessed = true; }
-            else if (selectedItem.equals("WaterMelonSeed")) { game.waterMelonSeeds += quantity; itemProcessed = true; }
-            else if (selectedItem.equals("WheatFood")) { game.wheatStock += quantity; itemProcessed = true; }
-            else if (selectedItem.equals("WaterMelonFood")) { game.waterMelonStock += quantity; itemProcessed = true; }
-            else if (selectedItem.equals("Cow")) { game.cowInventory += quantity; itemProcessed = true; }
-            else if (selectedItem.equals("Milk")) { game.milkStock += quantity; itemProcessed = true; } // Achat de lait
+            if (selectedItem.equals("WheatSeed")) { game.wheatSeeds += buyQuantity; itemProcessed = true; }
+            else if (selectedItem.equals("WaterMelonSeed")) { game.waterMelonSeeds += buyQuantity; itemProcessed = true; }
+            else if (selectedItem.equals("WheatFood")) { game.wheatStock += buyQuantity; itemProcessed = true; }
+            else if (selectedItem.equals("WaterMelonFood")) { game.waterMelonStock += buyQuantity; itemProcessed = true; }
+            else if (selectedItem.equals("Cow")) { game.cowInventory += buyQuantity; itemProcessed = true; }
+            else if (selectedItem.equals("Milk")) { game.milkStock += buyQuantity; itemProcessed = true; }
 
             if (itemProcessed) {
-                game.money -= totalPrice;
+                game.money -= totalBuyPrice;
                 game.update();
             }
         }
@@ -51,14 +76,14 @@ public class Market {
     public void confirmSale(MainController game) {
         boolean selItem = false;
 
-        if (selectedItem.equals("WheatSeed") && game.wheatSeeds >= quantity) { game.wheatSeeds -= quantity; selItem = true; }
-        else if (selectedItem.equals("WaterMelonSeed") && game.waterMelonSeeds >= quantity) { game.waterMelonSeeds -= quantity; selItem = true; }
-        else if (selectedItem.equals("WheatFood") && game.wheatStock >= quantity) { game.wheatStock -= quantity; selItem = true; }
-        else if (selectedItem.equals("WaterMelonFood") && game.waterMelonStock >= quantity) { game.waterMelonStock -= quantity; selItem = true; }
-        else if (selectedItem.equals("Milk") && game.milkStock >= quantity) { game.milkStock -= quantity; selItem = true; } // Vente de lait
+        if (selectedItem.equals("WheatSeed") && game.wheatSeeds >= sellQuantity) { game.wheatSeeds -= sellQuantity; selItem = true; }
+        else if (selectedItem.equals("WaterMelonSeed") && game.waterMelonSeeds >= sellQuantity) { game.waterMelonSeeds -= sellQuantity; selItem = true; }
+        else if (selectedItem.equals("WheatFood") && game.wheatStock >= sellQuantity) { game.wheatStock -= sellQuantity; selItem = true; }
+        else if (selectedItem.equals("WaterMelonFood") && game.waterMelonStock >= sellQuantity) { game.waterMelonStock -= sellQuantity; selItem = true; }
+        else if (selectedItem.equals("Milk") && game.milkStock >= sellQuantity) { game.milkStock -= sellQuantity; selItem = true; }
 
         if (selItem) {
-            game.money += totalPrice;
+            game.money += totalSellPrice;
             game.update();
         }
     }

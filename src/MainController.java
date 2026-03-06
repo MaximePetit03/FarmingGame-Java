@@ -139,7 +139,7 @@ public class MainController {
         if (selectWheatBtn != null) selectWheatBtn.setText("Blé: " + wheatStock);
         if (waterMelonSeedsBtn != null) waterMelonSeedsBtn.setText("Graines Pastèque: " + waterMelonSeeds);
         if (selectWaterMelonBtn != null) selectWaterMelonBtn.setText("Pastèque: " + waterMelonStock);
-        if (milkStockBtn != null) milkStockBtn.setText("Lait: " + milkStock); // Mise à jour du bouton lait
+        if (milkStockBtn != null) milkStockBtn.setText("Lait: " + milkStock);
 
         if (animalAreaController != null) {
             animalAreaController.updateUI();

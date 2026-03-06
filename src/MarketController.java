@@ -4,8 +4,11 @@ import javafx.scene.control.Label;
 public class MarketController {
 
     @FXML private Label itemNameLabel;
-    @FXML private Label quantityLabel;
-    @FXML private Label totalPriceLabel;
+
+    @FXML private Label buyQuantityLabel;
+    @FXML private Label sellQuantityLabel;
+    @FXML private Label totalBuyPriceLabel;
+    @FXML private Label totalSellPriceLabel;
 
     private Market market = new Market();
     private MainController mainGame;
@@ -14,60 +17,47 @@ public class MarketController {
         this.mainGame = game;
     }
 
-    // --- SÉLECTION DES PRODUITS ---
-
+    // --- SÉLECTION DES PRODUITS (Prix Achat, Prix Vente) ---
     @FXML private void selectWheatSeed() {
-        market.selectProduct("WheatSeed", 5);
+        market.selectProduct("WheatSeed", 5, 2);
         itemNameLabel.setText("Graines de Blé");
         updateUI();
     }
-
     @FXML private void selectWaterMelonSeed() {
-        market.selectProduct("WaterMelonSeed", 15);
+        market.selectProduct("WaterMelonSeed", 15, 7);
         itemNameLabel.setText("Graines de Pastèque");
         updateUI();
     }
-
     @FXML private void selectWheatFood() {
-        market.selectProduct("WheatFood", 10);
-        itemNameLabel.setText("Blé (Récolte)");
+        market.selectProduct("WheatFood", 12, 10);
+        itemNameLabel.setText("Blé");
         updateUI();
     }
-
     @FXML private void selectWaterMelonFood() {
-        market.selectProduct("WaterMelonFood", 25);
-        itemNameLabel.setText("Pastèque (Récolte)");
+        market.selectProduct("WaterMelonFood", 40, 25);
+        itemNameLabel.setText("Pastèque");
         updateUI();
     }
-
     @FXML private void selectCow() {
-        market.selectProduct("Cow", 150);
+        market.selectProduct("Cow", 150, 75);
         itemNameLabel.setText("Vache");
         updateUI();
     }
-
     @FXML private void selectMilk() {
-        market.selectProduct("Milk", 40);
-        itemNameLabel.setText("Lait (Seau)");
+        market.selectProduct("Milk", 40, 20);
+        itemNameLabel.setText("Lait");
         updateUI();
     }
 
-    // --- BOUTONS D'ACTION ---
+    // --- BOUTONS D'ACTION (Dédoublés) ---
+    @FXML private void plusBuyQuantity() { market.incrementBuyQuantity(); updateUI(); }
+    @FXML private void minusBuyQuantity() { market.decrementBuyQuantity(); updateUI(); }
 
-    @FXML private void plusQuantity() {
-        market.incrementQuantity();
-        updateUI();
-    }
+    @FXML private void plusSellQuantity() { market.incrementSellQuantity(); updateUI(); }
+    @FXML private void minusSellQuantity() { market.decrementSellQuantity(); updateUI(); }
 
-    @FXML private void minusQuantity() {
-        market.decrementQuantity();
-        updateUI();
-    }
-
-    @FXML
-    private void confirmPurchase() {
+    @FXML private void confirmPurchase() {
         if (mainGame != null) {
-            // C'est ici que la classe Market appellera mainGame.addAnimalToEnclosure(new Cow())
             market.confirmPurchase(mainGame);
             mainGame.saveGame();
             updateUI();
@@ -77,12 +67,16 @@ public class MarketController {
     @FXML private void confirmSale() {
         if (mainGame != null) {
             market.confirmSale(mainGame);
+            mainGame.saveGame();
             updateUI();
         }
     }
 
     private void updateUI() {
-        quantityLabel.setText(String.valueOf(market.getQuantity()));
-        totalPriceLabel.setText(market.getTotalPrice() + " émeraudes");
+        buyQuantityLabel.setText(String.valueOf(market.getBuyQuantity()));
+        sellQuantityLabel.setText(String.valueOf(market.getSellQuantity()));
+
+        totalBuyPriceLabel.setText(market.getTotalBuyPrice() + " émeraudes");
+        totalSellPriceLabel.setText(market.getTotalSellPrice() + " émeraudes");
     }
 }

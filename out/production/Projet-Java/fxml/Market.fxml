@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: #F5F5DC; -fx-padding: 30;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MarketController">
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #F5F5DC; -fx-padding: 30;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MarketController">
     <children>
         <Label style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #5D4037;" text="LE MARCHÉ" />
 
@@ -15,28 +14,38 @@
                 <Button onAction="#selectWheatFood" prefHeight="45" prefWidth="160" style="-fx-base: #e67e22; -fx-font-weight: bold;" text="Blé (Récolte)" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <Button onAction="#selectWaterMelonFood" prefHeight="45" prefWidth="160" style="-fx-base: #e67e22; -fx-font-weight: bold;" text="Pastèque (Récolte)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Button onAction="#selectCow" prefHeight="45" prefWidth="160" style="-fx-base: #95a5a6; -fx-font-weight: bold;" text="Acheter Vache" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <Button onAction="#selectMilk" prefHeight="45" prefWidth="160" style="-fx-base: #ecf0f1; -fx-font-weight: bold;" text="Vendre Lait" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button onAction="#selectCow" prefHeight="45" prefWidth="160" style="-fx-base: #95a5a6; -fx-font-weight: bold;" text="Vache" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Button onAction="#selectMilk" prefHeight="45" prefWidth="160" style="-fx-base: #ecf0f1; -fx-font-weight: bold;" text="Lait" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
 
-        <VBox alignment="CENTER" maxWidth="400" spacing="15" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-border-color: #D7CCC8; -fx-border-width: 2; -fx-border-radius: 15;">
+        <Label fx:id="itemNameLabel" style="-fx-font-size: 20; -fx-font-style: italic; -fx-text-fill: #7f8c8d;" text="Sélectionnez un produit" />
+
+        <HBox alignment="CENTER" spacing="40">
             <children>
-                <Label fx:id="itemNameLabel" style="-fx-font-size: 18; -fx-font-style: italic; -fx-text-fill: #7f8c8d;" text="Sélectionnez un produit" />
+                <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 15; -fx-border-color: #27ae60; -fx-border-width: 2; -fx-border-radius: 15;">
+                    <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="ACHETER" />
+                    <HBox alignment="CENTER" spacing="15">
+                        <Button onAction="#minusBuyQuantity" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 35;" text="-" />
+                        <Label fx:id="buyQuantityLabel" style="-fx-font-size: 22; -fx-font-weight: bold;" text="1" />
+                        <Button onAction="#plusBuyQuantity" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 35;" text="+" />
+                    </HBox>
+                    <Label fx:id="totalBuyPriceLabel" style="-fx-font-size: 18; -fx-font-weight: bold;" text="0 éme." />
+                    <Button onAction="#confirmPurchase" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="VALIDER ACHAT" />
+                </VBox>
 
-                <HBox alignment="CENTER" spacing="25">
-                    <Button onAction="#minusQuantity" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 45; -fx-min-height: 45;" text="-" />
-                    <Label fx:id="quantityLabel" style="-fx-font-size: 28; -fx-font-weight: bold;" text="1" />
-                    <Button onAction="#plusQuantity" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 45; -fx-min-height: 45;" text="+" />
-                </HBox>
-
-                <Label fx:id="totalPriceLabel" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="0 émeraudes" />
+                <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 15; -fx-border-color: #e74c3c; -fx-border-width: 2; -fx-border-radius: 15;">
+                    <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #e74c3c;" text="VENDRE" />
+                    <HBox alignment="CENTER" spacing="15">
+                        <Button onAction="#minusSellQuantity" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 35;" text="-" />
+                        <Label fx:id="sellQuantityLabel" style="-fx-font-size: 22; -fx-font-weight: bold;" text="1" />
+                        <Button onAction="#plusSellQuantity" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 35;" text="+" />
+                    </HBox>
+                    <Label fx:id="totalSellPriceLabel" style="-fx-font-size: 18; -fx-font-weight: bold;" text="0 éme." />
+                    <Button onAction="#confirmSale" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="VALIDER VENTE" />
+                </VBox>
             </children>
-        </VBox>
-
-        <HBox alignment="CENTER" spacing="30">
-            <Button onAction="#confirmPurchase" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-padding: 12 40; -fx-background-radius: 8;" text="ACHETER" />
-            <Button onAction="#confirmSale" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-padding: 12 40; -fx-background-radius: 8;" text="VENDRE" />
         </HBox>
+
     </children>
 </VBox>
