@@ -16,7 +16,6 @@ public class AnimalController {
     }
 
     public void updateDisplay() {
-        if (mainGame == null) return;
-        // On pourrait ici mettre à jour les textes des boutons et barres
+
     }
 }

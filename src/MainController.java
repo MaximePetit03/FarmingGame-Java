@@ -23,7 +23,6 @@ public class MainController {
     @FXML private TabPane mainTabPane;
 
     @FXML private VBox cultivableField;
-    @FXML private VBox marketArea;
 
     @FXML private MarketController marketAreaController;
 
@@ -51,7 +50,6 @@ public class MainController {
         for (int i = 0; i < 5; i++) {
             if (cultivableField != null) {
                 fieldButtons[i] = (Button) cultivableField.lookup("#btn" + i);
-                fieldProgressBars[i] = (ProgressBar) cultivableField.lookup("#bar" + i);
             }
         }
 
@@ -120,16 +118,19 @@ public class MainController {
     }
 
     public void update() {
-        if (moneyLabel != null) moneyLabel.setText("Richesse: " + money + " émeraudes");
+        // Mise à jour des labels (argent, stocks)
+        if (moneyLabel != null) moneyLabel.setText("Richesse: " + money + " éme.");
         if (wheatSeedsBtn != null) wheatSeedsBtn.setText("Graines Blé: " + wheatSeeds);
         if (selectWheatBtn != null) selectWheatBtn.setText("Blé: " + wheatStock);
         if (waterMelonSeedsBtn != null) waterMelonSeedsBtn.setText("Graines Pastèque: " + waterMelonSeeds);
         if (selectWaterMelonBtn != null) selectWaterMelonBtn.setText("Pastèque: " + waterMelonStock);
 
         for (int i = 0; i < 5; i++) {
-            if (fieldButtons[i] != null && fieldProgressBars[i] != null) {
-                fieldButtons[i].setText(fields.get(i).getStateText());
-                fieldProgressBars[i].setProgress(fields.get(i).getProgress());
+            if (fieldButtons[i] != null) {
+                CultivableField f = fields.get(i);
+
+                fieldButtons[i].setStyle(f.getStyle());
+                fieldButtons[i].setText(f.getText());
             }
         }
     }

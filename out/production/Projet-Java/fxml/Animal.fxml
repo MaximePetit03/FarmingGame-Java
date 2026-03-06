@@ -5,28 +5,14 @@
 <VBox alignment="CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label style="-fx-font-weight: bold; -fx-font-size: 22;" text="MON ÉLEVAGE" />
-        <GridPane alignment="CENTER" hgap="25" vgap="25">
+
+        <GridPane alignment="CENTER" hgap="15" vgap="15">
             <children>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;">
-                    <Button fx:id="animalBtn0" prefWidth="150" text="Enclos Vide" />
-                    <ProgressBar fx:id="animalBar0" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.columnIndex="1">
-                    <Button fx:id="animalBtn1" prefWidth="150" text="Enclos Vide" />
-                    <ProgressBar fx:id="animalBar1" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.columnIndex="2">
-                    <Button fx:id="animalBtn2" prefWidth="150" text="Enclos Vide" />
-                    <ProgressBar fx:id="animalBar2" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.rowIndex="1">
-                    <Button fx:id="animalBtn3" prefWidth="150" text="Enclos Vide" />
-                    <ProgressBar fx:id="animalBar3" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <Button fx:id="animalBtn4" prefWidth="150" text="Enclos Vide" />
-                    <ProgressBar fx:id="animalBar4" prefWidth="150" progress="0.0" />
-                </VBox>
+                <Button fx:id="animalBtn0" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Button fx:id="animalBtn1" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button fx:id="animalBtn2" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Button fx:id="animalBtn3" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button fx:id="animalBtn4" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>

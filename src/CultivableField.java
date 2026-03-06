@@ -4,16 +4,33 @@ public class CultivableField {
     private double growthProgress = 0.0;
     private boolean isReady = false;
 
-    // --- MÉTHODES UTILITAIRES POUR L'AFFICHAGE ---
 
-    // Utilisé par le MainController pour rafraîchir le texte du bouton
-    public String getStateText() {
-        if (!isOccupied) return "Vide (Planter)";
-        if (isReady) return getPlantName() + " (Récolter !)";
-        return getPlantName() + " (Pousse...)";
+    public String getStyle() {
+        String baseStyle = "-fx-background-radius: 5; -fx-text-fill: white; -fx-font-weight: bold; ";
+
+        if (!isOccupied) {
+            // MARRON
+            return baseStyle + "-fx-background-color: #8B4513;";
+        } else if (!isReady) {
+            // JAUNE
+            return baseStyle + "-fx-background-color: #F1C40F; -fx-text-fill: black;";
+        } else {
+            // VERT
+            return baseStyle + "-fx-background-color: #27ae60;";
+        }
     }
 
-    // Utilisé par la boucle de jeu (Timeline) du MainController
+    public String getText() {
+        String name = (currentPlant instanceof Wheat) ? "Blé" : "Pastèque";
+        int percent = (int)(growthProgress * 100);
+
+        if (!isOccupied) return "VIDE";
+        if (isReady) return name + " prêt";
+
+        return name + " pousse" + "\n" + percent + "%";
+    }
+
+
     public void updateProgress() {
         if (isOccupied && !isReady && currentPlant != null) {
             this.growthProgress += currentPlant.getGrowthSpeed();
@@ -24,28 +41,9 @@ public class CultivableField {
         }
     }
 
-    // Retourne le progrès (0.0 à 1.0) pour la ProgressBar
-    public double getProgress() {
-        return growthProgress;
-    }
-
-    // --- LOGIQUE MÉTIER ---
-
-    public String getPlantName() {
-        if (currentPlant != null) {
-            String name = currentPlant.name;
-            if (name.equalsIgnoreCase("wheat")) return "Blé";
-            if (name.equalsIgnoreCase("waterMelon")) return "Pastèque";
-            return name;
-        }
-        return "";
-    }
-
     public void harvestSystem(MainController game) {
         if (!this.isOccupied) {
-            // On récupère la graine sélectionnée dans l'interface
             String selected = game.selectedSeed;
-
             if (selected.equals("wheat") && game.wheatSeeds > 0) {
                 game.wheatSeeds -= 1;
                 plant(new Wheat());
@@ -78,7 +76,6 @@ public class CultivableField {
         this.isReady = false;
     }
 
-    // Getters
     public boolean isOccupied() { return isOccupied; }
     public boolean isReady() { return isReady; }
 }

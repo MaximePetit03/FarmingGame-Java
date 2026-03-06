@@ -5,28 +5,14 @@
 <VBox alignment="CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label style="-fx-font-weight: bold; -fx-font-size: 22;" text="MES PARCELLES" />
-        <GridPane alignment="CENTER" hgap="25" vgap="25">
+
+        <GridPane alignment="CENTER" hgap="15" vgap="15">
             <children>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;">
-                    <Button fx:id="btn0" prefWidth="150" text="Vide" />
-                    <ProgressBar fx:id="bar0" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.columnIndex="1">
-                    <Button fx:id="btn1" prefWidth="150" text="Vide" />
-                    <ProgressBar fx:id="bar1" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.columnIndex="2">
-                    <Button fx:id="btn2" prefWidth="150" text="Vide" />
-                    <ProgressBar fx:id="bar2" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.rowIndex="1">
-                    <Button fx:id="btn3" prefWidth="150" text="Vide" />
-                    <ProgressBar fx:id="bar3" prefWidth="150" progress="0.0" />
-                </VBox>
-                <VBox alignment="CENTER" spacing="10" style="-fx-border-color: #ccc; -fx-padding: 20; -fx-background-color: white; -fx-border-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <Button fx:id="btn4" prefWidth="150" text="Vide" />
-                    <ProgressBar fx:id="bar4" prefWidth="150" progress="0.0" />
-                </VBox>
+                <Button fx:id="btn0" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Button fx:id="btn1" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button fx:id="btn2" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Button fx:id="btn3" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button fx:id="btn4" prefHeight="120" prefWidth="120" text="Vide" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </children>

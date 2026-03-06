@@ -11,41 +11,16 @@ public abstract class Animal extends Item {
     public abstract double getProductionSpeed();
 
     public void feed(MainController game) {
-        if (!this.isFed) {
 
-            // Récupère le type de nourriture
-            String foodNeeded = this.getRequiredFood();
-
-            // Nourrir
-            if (foodNeeded.equals("wheat") && game.wheatStock > 0) {
-                game.wheatStock -= 1;
-                this.isFed = true;
-                System.out.println(this.name + " a été nourri avec du blé.");
-            }
-        }
     }
 
     public void incrementProduction() {
-        if (this.isFed && !this.isReady) {
-            this.productionProgress += getProductionSpeed();
-            if (this.productionProgress >= 1.0) {
-                this.productionProgress = 1.0;
-                this.isReady = true;
-            }
-        }
+
     }
 
-    /*public void collectProduct(MainController game) {
-        if (this.isReady) {
-            if (this instanceof Cow) {
-                game.milkStock += 1;
-            }
+    public void collectProduct(MainController game) {
 
-            this.isFed = false;
-            this.isReady = false;
-            this.productionProgress = 0.0;
-        }
-    } */
+    }
 
     // Getters
     public double getProductionProgress() { return productionProgress; }
