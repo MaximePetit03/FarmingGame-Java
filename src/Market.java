@@ -10,7 +10,6 @@ public class Market {
     private int totalBuyPrice = 0;
     private int totalSellPrice = 0;
 
-    // GESTION ACHAT
     public void incrementBuyQuantity() {
         buyQuantity += 1;
         updatePrices();
@@ -60,10 +59,10 @@ public class Market {
     public void confirmPurchase(MainController game) {
         if (selectedItem == null) return;
 
-        if (selectedItem.equals("Cow") && !game.isCowUnlocked) {
+        if (selectedItem.equals("Cow") && !game.cowUnlocked) {
             if (game.money >= 1000) {
                 game.money -= 1000;
-                game.isCowUnlocked = true;
+                game.cowUnlocked = true;
                 game.update();
             }
             return;

@@ -9,12 +9,12 @@
         <GridPane alignment="CENTER" hgap="15" vgap="15">
             <children>
                 <Button onAction="#selectWheatSeed" prefHeight="45" prefWidth="160" style="-fx-base: #f1c40f; -fx-font-weight: bold;" text="Graines de Blé" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Button onAction="#selectWaterMelonSeed" prefHeight="45" prefWidth="160" style="-fx-base: #f1c40f; -fx-font-weight: bold;" text="Graines Pastèque" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button fx:id="selectWaterMelonBtn" onAction="#selectWaterMelonSeed" prefHeight="45" prefWidth="160" style="-fx-base: #f1c40f; -fx-font-weight: bold;" text="Graines Pastèque" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Button onAction="#selectWheatFood" prefHeight="45" prefWidth="160" style="-fx-base: #e67e22; -fx-font-weight: bold;" text="Blé (Récolte)" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Button onAction="#selectWaterMelonFood" prefHeight="45" prefWidth="160" style="-fx-base: #e67e22; -fx-font-weight: bold;" text="Pastèque (Récolte)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button onAction="#selectWheatFood" prefHeight="45" prefWidth="160" style="-fx-base: #e67e22; -fx-font-weight: bold;" text="Blé" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Button onAction="#selectWaterMelonFood" prefHeight="45" prefWidth="160" style="-fx-base: #e67e22; -fx-font-weight: bold;" text="Pastèque" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Button onAction="#selectCow" prefHeight="45" prefWidth="160" style="-fx-base: #95a5a6; -fx-font-weight: bold;" text="Vache" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Button fx:id="selectCowBtn" onAction="#selectCow" prefHeight="45" prefWidth="160" style="-fx-base: #95a5a6; -fx-font-weight: bold;" text="Vache" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <Button onAction="#selectMilk" prefHeight="45" prefWidth="160" style="-fx-base: #ecf0f1; -fx-font-weight: bold;" text="Lait" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>

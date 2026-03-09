@@ -18,8 +18,8 @@ public class Save {
             writer.println(mainGame.waterMelonSeeds);
             writer.println(mainGame.cowInventory);
             writer.println(mainGame.milkStock);
-            writer.println(mainGame.isCowUnlocked);
-            writer.println(mainGame.isWaterMelonUnlocked);
+            writer.println(mainGame.cowUnlocked);
+            writer.println(mainGame.waterMelonUnlocked);
 
             for (int i = 0; i < mainGame.animals.length; i++) {
                 if (mainGame.animals[i] == null) {
@@ -49,8 +49,8 @@ public class Save {
             if (scanner.hasNextInt()) mainGame.milkStock = scanner.nextInt();
 
             // Lecture des booléens
-            if (scanner.hasNext()) mainGame.isCowUnlocked = Boolean.parseBoolean(scanner.next());
-            if (scanner.hasNext()) mainGame.isWaterMelonUnlocked = Boolean.parseBoolean(scanner.next());
+            if (scanner.hasNext()) mainGame.cowUnlocked = Boolean.parseBoolean(scanner.next());
+            if (scanner.hasNext()) mainGame.waterMelonUnlocked = Boolean.parseBoolean(scanner.next());
 
             if (scanner.hasNextLine()) scanner.nextLine(); // Nettoyer la ligne après les booléens
 

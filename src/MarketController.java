@@ -1,14 +1,18 @@
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class MarketController {
 
     @FXML private Label itemNameLabel;
-
     @FXML private Label buyQuantityLabel;
     @FXML private Label sellQuantityLabel;
     @FXML private Label totalBuyPriceLabel;
     @FXML private Label totalSellPriceLabel;
+
+    @FXML private Button selectWaterMelonBtn;
+    @FXML private Button selectCowBtn;
+    @FXML private Button confirmPurchaseBtn;
 
     private Market market = new Market();
     private MainController mainGame;
@@ -23,7 +27,7 @@ public class MarketController {
         updateUI();
     }
     @FXML private void selectWaterMelonSeed() {
-        if (!mainGame.isWaterMelonUnlocked) {
+        if (!mainGame.waterMelonUnlocked) {
             market.selectProduct("WaterMelonSeed", 250, 0);
             itemNameLabel.setText("Graines de Pastèque (VERROUILLÉES)");
         } else {
@@ -43,7 +47,7 @@ public class MarketController {
         updateUI();
     }
     @FXML private void selectCow() {
-        if (!mainGame.isCowUnlocked) {
+        if (!mainGame.cowUnlocked) {
             market.selectProduct("Cow", 1000, 0);
             itemNameLabel.setText("Vache (VERROUILLÉE)");
         } else {
@@ -67,11 +71,11 @@ public class MarketController {
     private void handleUnlock(int price, String type) {
         if (mainGame.money >= price) {
             mainGame.money -= price;
-            if (type.equals("isCowUnlocked")) {
-                mainGame.isCowUnlocked = true;
+            if (type.equals("cowUnlocked")) {
+                mainGame.cowUnlocked = true;
                 selectCow();
             } else {
-                mainGame.isWaterMelonUnlocked = true;
+                mainGame.waterMelonUnlocked = true;
                 selectWaterMelonSeed();
             }
             mainGame.saveGame();
@@ -84,11 +88,11 @@ public class MarketController {
         if (mainGame != null) {
             String currentProduct = market.getSelectedProductName();
 
-            if ("Cow".equals(currentProduct) && !mainGame.isCowUnlocked) {
-                handleUnlock(1000, "isCowUnlocked");
+            if ("Cow".equals(currentProduct) && !mainGame.cowUnlocked) {
+                handleUnlock(1000, "cowUnlocked");
             }
-            else if ("WaterMelonSeed".equals(currentProduct) && !mainGame.isWaterMelonUnlocked) {
-                handleUnlock(250, "isWaterMelonUnlocked");
+            else if ("WaterMelonSeed".equals(currentProduct) && !mainGame.waterMelonUnlocked) {
+                handleUnlock(250, "waterMelonUnlocked");
             }
             else {
                 market.confirmPurchase(mainGame);
@@ -100,7 +104,8 @@ public class MarketController {
         }
     }
 
-    @FXML private void confirmSale() {
+    @FXML
+    private void confirmSale() {
         if (mainGame != null) {
             market.confirmSale(mainGame);
             mainGame.saveGame();
@@ -111,8 +116,26 @@ public class MarketController {
     private void updateUI() {
         buyQuantityLabel.setText(String.valueOf(market.getBuyQuantity()));
         sellQuantityLabel.setText(String.valueOf(market.getSellQuantity()));
-
         totalBuyPriceLabel.setText(market.getTotalBuyPrice() + " émeraudes");
         totalSellPriceLabel.setText(market.getTotalSellPrice() + " émeraudes");
+
+
+        if (selectWaterMelonBtn != null && mainGame != null) {
+            selectWaterMelonBtn.setOpacity(mainGame.waterMelonUnlocked ? 1.0 : 0.5);
+        }
+
+        if (selectCowBtn != null && mainGame != null) {
+            selectCowBtn.setOpacity(mainGame.cowUnlocked ? 1.0 : 0.5);
+        }
+
+        if (confirmPurchaseBtn != null && mainGame != null) {
+            if (market.getTotalBuyPrice() > mainGame.money) {
+                confirmPurchaseBtn.setDisable(true);
+                confirmPurchaseBtn.setOpacity(0.3);
+            } else {
+                confirmPurchaseBtn.setDisable(false);
+                confirmPurchaseBtn.setOpacity(1.0);
+            }
+        }
     }
 }

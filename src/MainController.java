@@ -23,11 +23,9 @@ public class MainController {
     @FXML private TabPane mainTabPane;
     @FXML private VBox cultivableField;
 
-    // --- RÉFÉRENCES AUTRES CONTRÔLEURS ---
     @FXML private MarketController marketAreaController;
     @FXML private AnimalController animalAreaController;
 
-    // --- LOGIQUE DU JEU ---
     public int money = 0;
     public int wheatStock = 0;
     public int wheatSeeds = 6;
@@ -36,12 +34,10 @@ public class MainController {
     public int cowInventory = 0;
     public int milkStock = 0;
 
-    // --- ÉTATS DE PROGRESSION ---
-    public boolean isCowUnlocked = false;
-    public boolean isWaterMelonUnlocked = false;
+    public boolean cowUnlocked = false;
+    public boolean waterMelonUnlocked = false;
     public String selectedSeed = "wheat";
 
-    // --- SYSTÈMES ---
     private Button[] fieldButtons = new Button[6];
     public List<CultivableField> fields = new ArrayList<>();
     public Animal[] animals = new Animal[6];
@@ -109,7 +105,7 @@ public class MainController {
 
     @FXML
     public void selectWaterMelon() {
-        if (isWaterMelonUnlocked) {
+        if (waterMelonUnlocked) {
             selectedSeed = "watermelon";
             applyStyle();
         }
@@ -119,7 +115,7 @@ public class MainController {
         if (selectWheatBtn == null || selectWaterMelonBtn == null) return;
         selectWheatBtn.setStyle(selectedSeed.equals("wheat") ? "-fx-border-color: #2ecc71; -fx-border-width: 3;" : "");
 
-        if (!isWaterMelonUnlocked) {
+        if (!waterMelonUnlocked) {
             selectWaterMelonBtn.setOpacity(0.5);
             selectWaterMelonBtn.setText("LOCKED");
             selectWaterMelonBtn.setStyle("");
@@ -152,7 +148,7 @@ public class MainController {
         if (wheatSeedsBtn != null) wheatSeedsBtn.setText("Graines Blé: " + wheatSeeds);
         if (selectWheatBtn != null) selectWheatBtn.setText("Blé: " + wheatStock);
         if (waterMelonSeedsBtn != null) waterMelonSeedsBtn.setText("Graines Pastèque: " + waterMelonSeeds);
-        if (selectWaterMelonBtn != null && isWaterMelonUnlocked) selectWaterMelonBtn.setText("Pastèque: " + waterMelonStock);
+        if (selectWaterMelonBtn != null && waterMelonUnlocked) selectWaterMelonBtn.setText("Pastèque: " + waterMelonStock);
         if (milkStockBtn != null) milkStockBtn.setText("Lait: " + milkStock);
 
         if (animalAreaController != null) animalAreaController.updateUI();
