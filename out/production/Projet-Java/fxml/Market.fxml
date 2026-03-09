@@ -16,6 +16,12 @@
 
                 <Button fx:id="selectCowBtn" onAction="#selectCow" prefHeight="45" prefWidth="160" style="-fx-base: #95a5a6; -fx-font-weight: bold;" text="Vache" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <Button onAction="#selectMilk" prefHeight="45" prefWidth="160" style="-fx-base: #ecf0f1; -fx-font-weight: bold;" text="Lait" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Button fx:id="selectChickenBtn" onAction="#selectChicken" prefHeight="45" prefWidth="160" style="-fx-base: #f39c12; -fx-font-weight: bold;" text="Poulet" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Button onAction="#selectEgg" prefHeight="45" prefWidth="160" style="-fx-base: #ffffff; -fx-font-weight: bold;" text="Oeuf" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Button fx:id="selectGoldenChickenBtn" onAction="#selectGoldenChicken" prefHeight="45" prefWidth="160" style="-fx-base: #f1c40f; -fx-font-weight: bold;" text="Poulet Doré" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Button onAction="#selectGoldenEgg" prefHeight="45" prefWidth="160" style="-fx-base: #FFD700; -fx-font-weight: bold;" text="Oeuf Doré" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             </children>
         </GridPane>
 
@@ -31,7 +37,7 @@
                         <Button onAction="#plusBuyQuantity" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 50; -fx-min-width: 35;" text="+" />
                     </HBox>
                     <Label fx:id="totalBuyPriceLabel" style="-fx-font-size: 18; -fx-font-weight: bold;" text="0 éme." />
-                    <Button onAction="#confirmPurchase" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="VALIDER ACHAT" />
+                    <Button fx:id="confirmPurchaseBtn" onAction="#confirmPurchase" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;" text="VALIDER ACHAT" />
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 15; -fx-border-color: #e74c3c; -fx-border-width: 2; -fx-border-radius: 15;">
@@ -46,6 +52,5 @@
                 </VBox>
             </children>
         </HBox>
-
     </children>
 </VBox>

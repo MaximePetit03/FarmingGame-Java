@@ -14,7 +14,16 @@ public abstract class Animal extends Item {
         if (this.isFed) return;
 
         String food = getRequiredFood();
-        if (food.equals("wheat") && game.wheatStock > 0) {
+
+        if (food.equals("watermelonSeeds") && game.waterMelonSeeds > 0) {
+            game.waterMelonSeeds -= 1;
+            this.isFed = true;
+        }
+        else if (food.equals("wheatSeeds") && game.wheatSeeds > 0) {
+            game.wheatSeeds -= 1;
+            this.isFed = true;
+        }
+        else if (food.equals("wheat") && game.wheatStock > 0) {
             game.wheatStock -= 1;
             this.isFed = true;
         }
@@ -77,3 +86,62 @@ class Cow extends Animal {
         }
     }
 }
+
+class Chicken extends Animal {
+    public Chicken() {
+        super("Poulet", 80, 40);
+    }
+
+    @Override
+    public String getRequiredFood() { return "wheatSeeds"; }
+
+    @Override
+    public double getProductionSpeed() { return 0.1; }
+
+    @Override
+    public void collectProduct(MainController game) {
+        if (this.isReady) {
+            game.eggStock += 1;
+            resetAnimal();
+            game.update();
+        }
+    }
+
+    private void resetAnimal() {
+        this.productionProgress = 0.0;
+        this.isReady = false;
+        this.isFed = false;
+    }
+}
+
+class GoldenChicken extends Animal {
+    public GoldenChicken() {
+        super("Poulet Doré", 1000, 500);
+    }
+
+    @Override
+    public String getRequiredFood() { return "watermelonSeeds"; }
+
+    @Override
+    public double getProductionSpeed() { return 0.05; }
+
+    @Override
+    public void collectProduct(MainController game) {
+        if (this.isReady) {
+            if ((int)(Math.random() * 20) == 0) {
+                game.goldenEggStock += 1;
+            } else {
+                game.eggStock += 1;
+            }
+            resetAnimal();
+            game.update();
+        }
+    }
+
+    private void resetAnimal() {
+        this.productionProgress = 0.0;
+        this.isReady = false;
+        this.isFed = false;
+    }
+}
+

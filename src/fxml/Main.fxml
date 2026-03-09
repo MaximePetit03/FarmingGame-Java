@@ -15,6 +15,9 @@
             <Button fx:id="selectWaterMelonBtn" onAction="#selectWaterMelon" prefHeight="40" prefWidth="200" style="-fx-font-size: 14;" text="Pastèque: 0" />
             <Button fx:id="milkStockBtn" prefHeight="40" prefWidth="200" style="-fx-font-size: 14; -fx-base: #ecf0f1;" text="Lait: 0" />
 
+            <Button fx:id="selectEggBtn" onAction="#selectEgg" prefHeight="40" prefWidth="200" style="-fx-font-size: 14;" text="Oeufs: 0" />
+            <Button fx:id="selectGoldenEggBtn" onAction="#selectGoldenEgg" prefHeight="40" prefWidth="200" style="-fx-font-size: 14; -fx-base: #FFD700; -fx-text-fill: black;" text="Oeufs Dorés: 0" />
+
             <Separator style="-fx-background-color: #34495e;" />
 
             <Label style="-fx-text-fill: #bdc3c7; -fx-font-weight: bold;" text="--- GRAINES ---" />

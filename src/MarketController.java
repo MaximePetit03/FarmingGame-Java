@@ -12,6 +12,8 @@ public class MarketController {
 
     @FXML private Button selectWaterMelonBtn;
     @FXML private Button selectCowBtn;
+    @FXML public Button selectChickenBtn;
+    @FXML public Button selectGoldenChickenBtn;
     @FXML private Button confirmPurchaseBtn;
 
     private Market market = new Market();
@@ -19,6 +21,7 @@ public class MarketController {
 
     public void setMainController(MainController game) {
         this.mainGame = game;
+        updateUI();
     }
 
     @FXML private void selectWheatSeed() {
@@ -42,7 +45,7 @@ public class MarketController {
         updateUI();
     }
     @FXML private void selectWaterMelonFood() {
-        market.selectProduct("WaterMelonFood", 40, 25);
+        market.selectProduct("WaterMelonFood", 40, 35);
         itemNameLabel.setText("Pastèque");
         updateUI();
     }
@@ -56,9 +59,52 @@ public class MarketController {
         }
         updateUI();
     }
+
     @FXML private void selectMilk() {
-        market.selectProduct("Milk", 40, 20);
+        market.selectProduct("Milk", 60, 55);
         itemNameLabel.setText("Lait");
+        updateUI();
+    }
+
+    @FXML
+    private void selectChicken() {
+        if (mainGame != null) {
+            if (!mainGame.chickenUnlocked) {
+                market.selectProduct("Chicken", 500, 0);
+                itemNameLabel.setText("Poulet (VERROUILLÉ)");
+            } else {
+                market.selectProduct("Chicken", 80, 40);
+                itemNameLabel.setText("Poulet");
+            }
+            updateUI();
+        }
+    }
+
+    @FXML
+    private void selectGoldenChicken() {
+        if (mainGame != null) {
+            if (!mainGame.goldenChickenUnlocked) {
+                market.selectProduct("GoldenChicken", 5000, 0);
+                itemNameLabel.setText("Poulet Doré (VERROUILLÉ)");
+            } else {
+                market.selectProduct("GoldenChicken", 1000, 500);
+                itemNameLabel.setText("Poulet Doré");
+            }
+            updateUI();
+        }
+    }
+
+    @FXML
+    private void selectEgg() {
+        market.selectProduct("Egg", 30, 25);
+        itemNameLabel.setText("Oeuf");
+        updateUI();
+    }
+
+    @FXML
+    private void selectGoldenEgg() {
+        market.selectProduct("GoldenEgg", 1500, 300);
+        itemNameLabel.setText("Oeuf Doré");
         updateUI();
     }
 
@@ -71,13 +117,26 @@ public class MarketController {
     private void handleUnlock(int price, String type) {
         if (mainGame.money >= price) {
             mainGame.money -= price;
-            if (type.equals("cowUnlocked")) {
-                mainGame.cowUnlocked = true;
-                selectCow();
-            } else {
-                mainGame.waterMelonUnlocked = true;
-                selectWaterMelonSeed();
+
+            switch (type) {
+                case "cowUnlocked":
+                    mainGame.cowUnlocked = true;
+                    selectCow();
+                    break;
+                case "waterMelonUnlocked":
+                    mainGame.waterMelonUnlocked = true;
+                    selectWaterMelonSeed();
+                    break;
+                case "chickenUnlocked":
+                    mainGame.chickenUnlocked = true;
+                    selectChicken();
+                    break;
+                case "goldenChickenUnlocked":
+                    mainGame.goldenChickenUnlocked = true;
+                    selectGoldenChicken();
+                    break;
             }
+
             mainGame.saveGame();
         } else {
             itemNameLabel.setText("Pas assez d'émeraudes (" + price + ") !");
@@ -90,11 +149,13 @@ public class MarketController {
 
             if ("Cow".equals(currentProduct) && !mainGame.cowUnlocked) {
                 handleUnlock(1000, "cowUnlocked");
-            }
-            else if ("WaterMelonSeed".equals(currentProduct) && !mainGame.waterMelonUnlocked) {
+            } else if ("WaterMelonSeed".equals(currentProduct) && !mainGame.waterMelonUnlocked) {
                 handleUnlock(250, "waterMelonUnlocked");
-            }
-            else {
+            } else if ("Chicken".equals(currentProduct) && !mainGame.chickenUnlocked) {
+                handleUnlock(500, "chickenUnlocked");
+            } else if ("GoldenChicken".equals(currentProduct) && !mainGame.goldenChickenUnlocked) {
+                handleUnlock(5000, "goldenChickenUnlocked");
+            } else {
                 market.confirmPurchase(mainGame);
                 mainGame.saveGame();
             }
@@ -126,6 +187,14 @@ public class MarketController {
 
         if (selectCowBtn != null && mainGame != null) {
             selectCowBtn.setOpacity(mainGame.cowUnlocked ? 1.0 : 0.5);
+        }
+
+        if (selectChickenBtn != null) {
+            selectChickenBtn.setOpacity(mainGame.chickenUnlocked ? 1.0 : 0.5);
+        }
+
+        if (selectGoldenChickenBtn != null) {
+            selectGoldenChickenBtn.setOpacity(mainGame.goldenChickenUnlocked ? 1.0 : 0.5);
         }
 
         if (confirmPurchaseBtn != null && mainGame != null) {

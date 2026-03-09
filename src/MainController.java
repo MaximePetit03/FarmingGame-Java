@@ -13,13 +13,17 @@ import java.util.List;
 
 public class MainController {
 
-    // --- ÉLÉMENTS FXML ---
     @FXML private Label moneyLabel;
     @FXML private Button selectWheatBtn;
     @FXML private Button selectWaterMelonBtn;
     @FXML private Button wheatSeedsBtn;
     @FXML private Button waterMelonSeedsBtn;
     @FXML private Button milkStockBtn;
+    @FXML private Button selectEggBtn;
+    @FXML private Button selectGoldenEggBtn;
+    @FXML public Button eggStockBtn;
+    @FXML public Button goldenEggBtn;
+
     @FXML private TabPane mainTabPane;
     @FXML private VBox cultivableField;
 
@@ -33,9 +37,15 @@ public class MainController {
     public int waterMelonSeeds = 0;
     public int cowInventory = 0;
     public int milkStock = 0;
+    public int eggStock = 0;
+    public int goldenEggStock = 0;
+    public int chickenInventory = 0;
+    public int goldenChickenInventory = 0;
 
     public boolean cowUnlocked = false;
     public boolean waterMelonUnlocked = false;
+    public boolean chickenUnlocked = false;
+    public boolean goldenChickenUnlocked = false;
     public String selectedSeed = "wheat";
 
     private Button[] fieldButtons = new Button[6];
@@ -111,9 +121,26 @@ public class MainController {
         }
     }
 
+    @FXML
+    public void selectEgg() {
+        selectedSeed = "egg";
+        applyStyle();
+    }
+
+    @FXML
+    public void selectGoldenEgg() {
+        selectedSeed = "goldenEgg";
+        applyStyle();
+    }
+
     private void applyStyle() {
-        if (selectWheatBtn == null || selectWaterMelonBtn == null) return;
-        selectWheatBtn.setStyle(selectedSeed.equals("wheat") ? "-fx-border-color: #2ecc71; -fx-border-width: 3;" : "");
+        // Sécurité : on vérifie que les boutons ne sont pas null avant de toucher au style
+        if (selectWheatBtn == null || selectWaterMelonBtn == null ||
+                selectEggBtn == null || selectGoldenEggBtn == null) return;
+
+        selectWheatBtn.setStyle(selectedSeed.equals("wheat") ? "-fx-border-color: #2ecc71; -fx-border-width: 3; -fx-border-radius: 5;" : "");
+        selectEggBtn.setStyle(selectedSeed.equals("egg") ? "-fx-border-color: #2ecc71; -fx-border-width: 3; -fx-border-radius: 5;" : "");
+        selectGoldenEggBtn.setStyle(selectedSeed.equals("goldenEgg") ? "-fx-border-color: #2ecc71; -fx-border-width: 3; -fx-border-radius: 5;" : "");
 
         if (!waterMelonUnlocked) {
             selectWaterMelonBtn.setOpacity(0.5);
@@ -121,14 +148,23 @@ public class MainController {
             selectWaterMelonBtn.setStyle("");
         } else {
             selectWaterMelonBtn.setOpacity(1.0);
-            selectWaterMelonBtn.setStyle(selectedSeed.equals("watermelon") ? "-fx-border-color: #2ecc71; -fx-border-width: 3;" : "");
+            selectWaterMelonBtn.setStyle(selectedSeed.equals("watermelon") ? "-fx-border-color: #2ecc71; -fx-border-width: 3; -fx-border-radius: 5;" : "");
         }
     }
 
     public void placeAnimal(int index) {
-        if (cowInventory > 0 && animals[index] == null) {
-            animals[index] = new Cow();
-            cowInventory -= 1;
+        if (animals[index] == null) {
+            if (goldenChickenInventory > 0) {
+                animals[index] = new GoldenChicken();
+                goldenChickenInventory -= 1;
+            } else if (chickenInventory > 0) {
+                animals[index] = new Chicken();
+                chickenInventory -= 1;
+            } else if (cowInventory > 0) {
+                animals[index] = new Cow();
+                cowInventory -= 1;
+            }
+
             update();
             saveGame();
         }
@@ -150,6 +186,8 @@ public class MainController {
         if (waterMelonSeedsBtn != null) waterMelonSeedsBtn.setText("Graines Pastèque: " + waterMelonSeeds);
         if (selectWaterMelonBtn != null && waterMelonUnlocked) selectWaterMelonBtn.setText("Pastèque: " + waterMelonStock);
         if (milkStockBtn != null) milkStockBtn.setText("Lait: " + milkStock);
+        if (eggStockBtn != null) eggStockBtn.setText("Oeufs: " + eggStock);
+        if (goldenEggBtn != null) goldenEggBtn.setText("Oeufs Dorés: " + goldenEggStock);
 
         if (animalAreaController != null) animalAreaController.updateUI();
 

@@ -59,27 +59,55 @@ public class Market {
     public void confirmPurchase(MainController game) {
         if (selectedItem == null) return;
 
-        if (selectedItem.equals("Cow") && !game.cowUnlocked) {
-            if (game.money >= 1000) {
-                game.money -= 1000;
-                game.cowUnlocked = true;
-                game.update();
-            }
-            return;
-        }
-
         if (game.money >= totalBuyPrice) {
             boolean itemProcessed = false;
 
-            if (selectedItem.equals("WheatSeed")) { game.wheatSeeds += buyQuantity; itemProcessed = true; }
-            else if (selectedItem.equals("WaterMelonSeed")) { game.waterMelonSeeds += buyQuantity; itemProcessed = true; }
-            else if (selectedItem.equals("WheatFood")) { game.wheatStock += buyQuantity; itemProcessed = true; }
-            else if (selectedItem.equals("WaterMelonFood")) { game.waterMelonStock += buyQuantity; itemProcessed = true; }
-            else if (selectedItem.equals("Cow")) { game.cowInventory += buyQuantity; itemProcessed = true; }
-            else if (selectedItem.equals("Milk")) { game.milkStock += buyQuantity; itemProcessed = true; }
+            if (selectedItem.equals("WheatSeed")) {
+                game.wheatSeeds += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("WaterMelonSeed")) {
+                game.waterMelonSeeds += buyQuantity;
+                itemProcessed = true;
+            }
+
+            else if (selectedItem.equals("WheatFood")) {
+                game.wheatStock += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("WaterMelonFood")) {
+                game.waterMelonStock += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("Milk")) {
+                game.milkStock += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("Egg")) { // NOUVEAU
+                game.eggStock += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("GoldenEgg")) { // NOUVEAU
+                game.goldenEggStock += buyQuantity;
+                itemProcessed = true;
+            }
+
+            else if (selectedItem.equals("Cow")) {
+                game.cowInventory += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("Chicken")) { // NOUVEAU
+                game.chickenInventory += buyQuantity;
+                itemProcessed = true;
+            }
+            else if (selectedItem.equals("GoldenChicken")) { // NOUVEAU
+                game.goldenChickenInventory += buyQuantity;
+                itemProcessed = true;
+            }
 
             if (itemProcessed) {
                 game.money -= totalBuyPrice;
+                buyQuantity = 1;
                 game.update();
             }
         }
@@ -88,14 +116,43 @@ public class Market {
     public void confirmSale(MainController game) {
         boolean selItem = false;
 
-        if (selectedItem.equals("WheatSeed") && game.wheatSeeds >= sellQuantity) { game.wheatSeeds -= sellQuantity; selItem = true; }
-        else if (selectedItem.equals("WaterMelonSeed") && game.waterMelonSeeds >= sellQuantity) { game.waterMelonSeeds -= sellQuantity; selItem = true; }
-        else if (selectedItem.equals("WheatFood") && game.wheatStock >= sellQuantity) { game.wheatStock -= sellQuantity; selItem = true; }
-        else if (selectedItem.equals("WaterMelonFood") && game.waterMelonStock >= sellQuantity) { game.waterMelonStock -= sellQuantity; selItem = true; }
-        else if (selectedItem.equals("Milk") && game.milkStock >= sellQuantity) { game.milkStock -= sellQuantity; selItem = true; }
+        if (selectedItem.equals("WheatSeed") && game.wheatSeeds >= sellQuantity) {
+            game.wheatSeeds -= sellQuantity; selItem = true;
+        }
+        else if (selectedItem.equals("WaterMelonSeed") && game.waterMelonSeeds >= sellQuantity) {
+            game.waterMelonSeeds -= sellQuantity; selItem = true;
+        }
+
+        else if (selectedItem.equals("WheatFood") && game.wheatStock >= sellQuantity) {
+            game.wheatStock -= sellQuantity; selItem = true;
+        }
+        else if (selectedItem.equals("WaterMelonFood") && game.waterMelonStock >= sellQuantity) {
+            game.waterMelonStock -= sellQuantity; selItem = true;
+        }
+
+        else if (selectedItem.equals("Milk") && game.milkStock >= sellQuantity) {
+            game.milkStock -= sellQuantity; selItem = true;
+        }
+        else if (selectedItem.equals("Egg") && game.eggStock >= sellQuantity) { // NOUVEAU
+            game.eggStock -= sellQuantity; selItem = true;
+        }
+        else if (selectedItem.equals("GoldenEgg") && game.goldenEggStock >= sellQuantity) { // NOUVEAU
+            game.goldenEggStock -= sellQuantity; selItem = true;
+        }
+
+        else if (selectedItem.equals("Cow") && game.cowInventory >= sellQuantity) {
+            game.cowInventory -= sellQuantity; selItem = true;
+        }
+        else if (selectedItem.equals("Chicken") && game.chickenInventory >= sellQuantity) {
+            game.chickenInventory -= sellQuantity; selItem = true;
+        }
+        else if (selectedItem.equals("GoldenChicken") && game.goldenChickenInventory >= sellQuantity) {
+            game.goldenChickenInventory -= sellQuantity; selItem = true;
+        }
 
         if (selItem) {
             game.money += totalSellPrice;
+            sellQuantity = 1;
             game.update();
         }
     }
