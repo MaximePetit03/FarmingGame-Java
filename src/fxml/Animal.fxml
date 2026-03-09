@@ -2,9 +2,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="40.0" style="-fx-background-color: #7CB342;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AnimalController">
+<VBox alignment="CENTER" spacing="40.0" style="-fx-background-image: url('/images/ferme.png');
+             -fx-background-size: cover;
+             -fx-background-position: center;
+             -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AnimalController">
     <children>
-        <Label style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="MON ÉLEVAGE" />
+        <Label style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: black;" text="MON ÉLEVAGE" />
 
         <GridPane alignment="CENTER" hgap="15" vgap="15">
             <children>

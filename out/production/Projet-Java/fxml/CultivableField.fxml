@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="40.0" style="-fx-background-color: #8D6E63;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" spacing="40.0" style="-fx-background-image: url('/images/herbe.png'); -fx-background-size: cover; -fx-background-position: center;-fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="MES CULTURES" />
 
