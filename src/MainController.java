@@ -28,11 +28,11 @@ public class MainController {
     @FXML private AnimalController animalAreaController;
 
     // --- LOGIQUE DU JEU ---
-    public int money = 25;
+    public int money = 0;
     public int wheatStock = 0;
-    public int wheatSeeds = 10;
+    public int wheatSeeds = 6;
     public int waterMelonStock = 0;
-    public int waterMelonSeeds = 2;
+    public int waterMelonSeeds = 0;
     public int cowInventory = 0;
     public int milkStock = 0;
 
