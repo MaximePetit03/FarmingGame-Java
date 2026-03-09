@@ -17,15 +17,19 @@ public class MarketController {
         this.mainGame = game;
     }
 
-    // --- SÉLECTION DES PRODUITS (Prix Achat, Prix Vente) ---
     @FXML private void selectWheatSeed() {
         market.selectProduct("WheatSeed", 5, 2);
         itemNameLabel.setText("Graines de Blé");
         updateUI();
     }
     @FXML private void selectWaterMelonSeed() {
-        market.selectProduct("WaterMelonSeed", 15, 7);
-        itemNameLabel.setText("Graines de Pastèque");
+        if (!mainGame.isWaterMelonUnlocked) {
+            market.selectProduct("WaterMelonSeed", 250, 0);
+            itemNameLabel.setText("Graines de Pastèque (VERROUILLÉES)");
+        } else {
+            market.selectProduct("WaterMelonSeed", 15, 7);
+            itemNameLabel.setText("Graines de Pastèque");
+        }
         updateUI();
     }
     @FXML private void selectWheatFood() {
@@ -39,8 +43,13 @@ public class MarketController {
         updateUI();
     }
     @FXML private void selectCow() {
-        market.selectProduct("Cow", 150, 75);
-        itemNameLabel.setText("Vache");
+        if (!mainGame.isCowUnlocked) {
+            market.selectProduct("Cow", 1000, 0);
+            itemNameLabel.setText("Vache (VERROUILLÉE)");
+        } else {
+            market.selectProduct("Cow", 150, 75);
+            itemNameLabel.setText("Vache");
+        }
         updateUI();
     }
     @FXML private void selectMilk() {
@@ -49,18 +58,45 @@ public class MarketController {
         updateUI();
     }
 
-    // --- BOUTONS D'ACTION (Dédoublés) ---
     @FXML private void plusBuyQuantity() { market.incrementBuyQuantity(); updateUI(); }
     @FXML private void minusBuyQuantity() { market.decrementBuyQuantity(); updateUI(); }
 
     @FXML private void plusSellQuantity() { market.incrementSellQuantity(); updateUI(); }
     @FXML private void minusSellQuantity() { market.decrementSellQuantity(); updateUI(); }
 
+    private void handleUnlock(int price, String type) {
+        if (mainGame.money >= price) {
+            mainGame.money -= price;
+            if (type.equals("isCowUnlocked")) {
+                mainGame.isCowUnlocked = true;
+                selectCow();
+            } else {
+                mainGame.isWaterMelonUnlocked = true;
+                selectWaterMelonSeed();
+            }
+            mainGame.saveGame();
+        } else {
+            itemNameLabel.setText("Pas assez d'émeraudes (" + price + ") !");
+        }
+    }
+
     @FXML private void confirmPurchase() {
         if (mainGame != null) {
-            market.confirmPurchase(mainGame);
-            mainGame.saveGame();
+            String currentProduct = market.getSelectedProductName();
+
+            if ("Cow".equals(currentProduct) && !mainGame.isCowUnlocked) {
+                handleUnlock(1000, "isCowUnlocked");
+            }
+            else if ("WaterMelonSeed".equals(currentProduct) && !mainGame.isWaterMelonUnlocked) {
+                handleUnlock(250, "isWaterMelonUnlocked");
+            }
+            else {
+                market.confirmPurchase(mainGame);
+                mainGame.saveGame();
+            }
+
             updateUI();
+            mainGame.update();
         }
     }
 

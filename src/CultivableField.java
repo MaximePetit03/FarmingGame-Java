@@ -9,13 +9,13 @@ public class CultivableField {
         String baseStyle = "-fx-background-radius: 5; -fx-text-fill: white; -fx-font-weight: bold; ";
 
         if (!isOccupied) {
-            // MARRON
+            // Marron
             return baseStyle + "-fx-background-color: #8B4513;";
         } else if (!isReady) {
-            // JAUNE
+            // Jaune
             return baseStyle + "-fx-background-color: #F1C40F; -fx-text-fill: black;";
         } else {
-            // VERT
+            // Vert
             return baseStyle + "-fx-background-color: #27ae60;";
         }
     }

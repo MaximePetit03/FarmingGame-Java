@@ -1,7 +1,6 @@
 public class Market {
-    private Object selectedItem;
+    private String selectedItem;
 
-    // Variables séparées
     private int buyQuantity = 1;
     private int sellQuantity = 1;
 
@@ -23,11 +22,11 @@ public class Market {
         }
     }
 
-    // GESTION VENTE
     public void incrementSellQuantity() {
         sellQuantity += 1;
         updatePrices();
     }
+
     public void decrementSellQuantity() {
         if (sellQuantity > 1) {
             sellQuantity -= 1;
@@ -35,13 +34,16 @@ public class Market {
         }
     }
 
+    public String getSelectedProductName() {
+        return selectedItem;
+    }
+
     private void updatePrices() {
         this.totalBuyPrice = this.buyQuantity * this.unitBuyPrice;
         this.totalSellPrice = this.sellQuantity * this.unitSellPrice;
     }
 
-    // On demande maintenant les DEUX prix (achat et vente)
-    public void selectProduct(Object item, int buyPrice, int sellPrice) {
+    public void selectProduct(String item, int buyPrice, int sellPrice) {
         this.selectedItem = item;
         this.unitBuyPrice = buyPrice;
         this.unitSellPrice = sellPrice;
@@ -56,7 +58,18 @@ public class Market {
     public int getTotalSellPrice() { return totalSellPrice; }
 
     public void confirmPurchase(MainController game) {
-        if (game.money >= totalBuyPrice && selectedItem != null) {
+        if (selectedItem == null) return;
+
+        if (selectedItem.equals("Cow") && !game.isCowUnlocked) {
+            if (game.money >= 1000) {
+                game.money -= 1000;
+                game.isCowUnlocked = true;
+                game.update();
+            }
+            return;
+        }
+
+        if (game.money >= totalBuyPrice) {
             boolean itemProcessed = false;
 
             if (selectedItem.equals("WheatSeed")) { game.wheatSeeds += buyQuantity; itemProcessed = true; }
