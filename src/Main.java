@@ -14,7 +14,7 @@ public class Main extends Application {
 
         MainController controller = loader.getController();
 
-        primaryStage.setTitle("Farmer's life");
+        primaryStage.setTitle("Emerald Valley");
         primaryStage.setScene(new Scene(root, 1080, 720));
 
         // Save quand on ferme la fenêtre

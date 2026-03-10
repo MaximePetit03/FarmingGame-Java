@@ -2,9 +2,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -14,60 +17,81 @@ import java.util.List;
 public class MainController {
 
     @FXML private Label moneyLabel;
-    @FXML private Button selectWheatBtn;
-    @FXML private Button selectWaterMelonBtn;
-    @FXML private Button wheatSeedsBtn;
-    @FXML private Button waterMelonSeedsBtn;
-    @FXML private Button milkStockBtn;
-    @FXML private Button selectEggBtn;
-    @FXML private Button selectGoldenEggBtn;
-    @FXML public Button eggStockBtn;
-    @FXML public Button goldenEggBtn;
-
+    @FXML private Button selectWheatBtn, selectWaterMelonBtn, selectEggBtn, selectGoldenEggBtn;
+    @FXML private Button wheatSeedsBtn, waterMelonSeedsBtn, milkStockBtn, eggStockBtn, goldenEggBtn;
     @FXML private TabPane mainTabPane;
     @FXML private VBox cultivableField;
 
     @FXML private MarketController marketAreaController;
     @FXML private AnimalController animalAreaController;
+    public WeatherController weatherUI = new WeatherController();
 
     public int money = 0;
-    public int wheatStock = 0;
-    public int wheatSeeds = 6;
-    public int waterMelonStock = 0;
-    public int waterMelonSeeds = 0;
-    public int cowInventory = 0;
-    public int milkStock = 0;
-    public int eggStock = 0;
-    public int goldenEggStock = 0;
-    public int chickenInventory = 0;
-    public int goldenChickenInventory = 0;
+    public String selectedSeed = "wheat";
+    private Save saveManager;
+    private Music musicManager = new Music();
+
+    public int wheatSeeds = 6, wheatStock = 0;
+    public int waterMelonSeeds = 0, waterMelonStock = 0;
+    public int cowInventory = 0, milkStock = 0;
+    public int chickenInventory = 0, eggStock = 0;
+    public int goldenChickenInventory = 0, goldenEggStock = 0;
 
     public boolean cowUnlocked = false;
     public boolean waterMelonUnlocked = false;
     public boolean chickenUnlocked = false;
     public boolean goldenChickenUnlocked = false;
-    public String selectedSeed = "wheat";
 
-    private Button[] fieldButtons = new Button[6];
+    private Weather currentWeather = new Weather();
+    private int weatherTimer = 0;
+    private final int weatherDuration = 20;
+
     public List<CultivableField> fields = new ArrayList<>();
+    private Button[] fieldButtons = new Button[6];
     public Animal[] animals = new Animal[6];
-    private Save saveManager;
-    private Music musicManager = new Music();
 
     @FXML
     public void initialize() {
         this.saveManager = new Save(this);
 
-        if (animalAreaController != null) {
-            animalAreaController.setMainController(this);
-        }
+        setupWeatherOverlay();
+        setupFields();
+        setupControllers();
+        setupTabs();
+        setupGameLoop();
 
+        loadGame();
+        applyStyle();
+        update();
+    }
+
+    private void setupWeatherOverlay() {
+        javafx.application.Platform.runLater(() -> {
+            if (mainTabPane != null && mainTabPane.getScene() != null) {
+                Parent root = mainTabPane.getScene().getRoot();
+                if (!(root instanceof StackPane)) {
+                    StackPane stack = new StackPane();
+                    mainTabPane.getScene().setRoot(stack);
+                    stack.getChildren().add(root);
+
+                    Label uiView = weatherUI.getView();
+                    weatherUI.updateView(currentWeather);
+
+                    stack.getChildren().add(uiView);
+
+                    StackPane.setAlignment(uiView, Pos.TOP_RIGHT);
+
+                    StackPane.setMargin(uiView, new Insets(50, 20, 0, 0));
+                }
+            }
+        });
+    }
+
+    private void setupFields() {
         fields.clear();
         for (int i = 0; i < 6; i++) {
             fields.add(new CultivableField());
-        }
 
-        for (int i = 0; i < 6; i++) {
             if (cultivableField != null) {
                 fieldButtons[i] = (Button) cultivableField.lookup("#btn" + i);
                 final int index = i;
@@ -79,32 +103,42 @@ public class MainController {
                 }
             }
         }
+    }
 
+    private void setupControllers() {
+        if (animalAreaController != null) {
+            animalAreaController.setMainController(this);
+        }
         if (marketAreaController != null) {
             marketAreaController.setMainController(this);
         }
+    }
 
+    private void setupTabs() {
         if (mainTabPane != null) {
+            mainTabPane.setFocusTraversable(false);
+
             mainTabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
-                if (newTab != null && newTab.getText().trim().equalsIgnoreCase("Marché")) {
-                    musicManager.play("WiiParty.mp3", 0.1);
-                } else {
-                    musicManager.stop();
+                if (newTab != null) {
+                    javafx.application.Platform.runLater(() -> {
+                        if (newTab.getText().trim().equalsIgnoreCase("Marché")) {
+                            musicManager.play("WiiParty.mp3", 0.1);
+                        } else {
+                            musicManager.stop();
+                        }
+                    });
                 }
             });
         }
+    }
 
-        loadGame();
-        applyStyle();
-
+    private void setupGameLoop() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-            updateGameLogic();
+            updateGame();
             update();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
-        update();
     }
 
     @FXML
@@ -170,9 +204,18 @@ public class MainController {
         }
     }
 
-    private void updateGameLogic() {
+    private void updateGame() {
+        weatherTimer += 1;
+
+        if (weatherTimer >= weatherDuration) {
+            currentWeather.generateRandomWeather();
+            weatherTimer = 0;
+
+            weatherUI.updateView(currentWeather);
+            System.out.println("La météo actuelle : " + currentWeather.getCurrentName());
+        }
         for (CultivableField f : fields) {
-            f.updateProgress();
+            f.updateProgress(currentWeather);
         }
         for (Animal a : animals) {
             if (a != null) a.incrementProduction();

@@ -1,26 +1,34 @@
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Music {
     private MediaPlayer mediaPlayer;
+    private final Map<String, Media> cache = new HashMap<>();
 
     public void play(String fileName, double volume) {
         stop();
-        try {
-            URL resource = getClass().getResource("/soundtracks/" + fileName);
 
-            if (resource == null) {
-                return;
+        try {
+            Media media = cache.get(fileName);
+
+            if (media == null) {
+                URL resource = getClass().getResource("/soundtracks/" + fileName);
+                if (resource == null) {
+                    System.err.println("Fichier audio introuvable : " + fileName);
+                    return;
+                }
+                media = new Media(resource.toExternalForm());
+                cache.put(fileName, media);
             }
 
-            Media media = new Media(resource.toExternalForm());
             mediaPlayer = new MediaPlayer(media);
-
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             mediaPlayer.setVolume(volume);
 
-            mediaPlayer.play();
+            mediaPlayer.setOnReady(() -> mediaPlayer.play());
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -31,9 +31,11 @@ public class CultivableField {
     }
 
 
-    public void updateProgress() {
+    public void updateProgress(Weather weather) {
         if (isOccupied && !isReady && currentPlant != null) {
-            this.growthProgress += currentPlant.getGrowthSpeed();
+            double speedWeather = currentPlant.getGrowthSpeed() * weather.getGrowthMultiplier();
+            this.growthProgress += speedWeather;
+
             if (this.growthProgress >= 1.0) {
                 this.growthProgress = 1.0;
                 this.isReady = true;
