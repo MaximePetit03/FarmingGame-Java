@@ -9,7 +9,7 @@
 
 * **🌦️ Météo Dynamique** : Un système cyclique qui impacte la vitesse de croissance des plantes en temps réel.
 * **🚜 Gestion de Production** : Cycle complet de la plantation à la récolte (Blé, Pastèques) et de l'élevage à la vente (Vaches, Poules).
-* **🎧 Expérience Sonore** : Musiques d'ambiance adaptatives gérées de manière asynchrone pour une fluidité parfaite.
+* **🎧 Expérience Sonore** : Musique d'ambiance adaptative gérée de manière asynchrone pour une fluidité parfaite.
 * **📈 Économie & Marché** : Système de vente et d'achat d'émeraudes avec inventaire persistant.
 
 ---
