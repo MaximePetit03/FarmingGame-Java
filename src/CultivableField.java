@@ -1,3 +1,5 @@
+import javafx.scene.control.Button;
+
 public class CultivableField {
     private Plant currentPlant;
     private boolean isOccupied = false;
@@ -18,6 +20,19 @@ public class CultivableField {
             // Vert
             return baseStyle + "-fx-background-color: #27ae60;";
         }
+    }
+
+    public void setupHover(Button btn, MainController game) {
+        btn.setOnMouseEntered(e -> {
+            btn.setOpacity(0.8);
+            btn.setCursor(javafx.scene.Cursor.HAND);
+        });
+
+        btn.setOnMouseExited(e -> {
+            btn.setOpacity(1.0);
+            btn.setTranslateY(0);
+            game.update();
+        });
     }
 
     public String getText() {

@@ -90,16 +90,20 @@ public class MainController {
     private void setupFields() {
         fields.clear();
         for (int i = 0; i < 6; i++) {
-            fields.add(new CultivableField());
+            CultivableField field = new CultivableField();
+            fields.add(field);
 
             if (cultivableField != null) {
                 fieldButtons[i] = (Button) cultivableField.lookup("#btn" + i);
                 final int index = i;
+
                 if (fieldButtons[index] != null) {
                     fieldButtons[index].setOnAction(e -> {
                         fields.get(index).harvestSystem(this);
                         update();
                     });
+
+                    field.setupHover(fieldButtons[index], this);
                 }
             }
         }
@@ -168,7 +172,6 @@ public class MainController {
     }
 
     private void applyStyle() {
-        // Sécurité : on vérifie que les boutons ne sont pas null avant de toucher au style
         if (selectWheatBtn == null || selectWaterMelonBtn == null ||
                 selectEggBtn == null || selectGoldenEggBtn == null) return;
 
