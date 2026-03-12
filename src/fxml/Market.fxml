@@ -5,7 +5,7 @@
 <VBox alignment="CENTER" spacing="20.0" style="-fx-background-image: url('/images/magasin.png');
              -fx-background-size: cover;
              -fx-background-position: center;
-             -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MarketController">
+             -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MarketController">
     <children>
         <Label style="-fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: black;" text="LE MARCHÉ" />
 

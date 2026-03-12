@@ -5,7 +5,7 @@
 <VBox alignment="CENTER" spacing="40.0" style="-fx-background-image: url('/images/ferme.png');
              -fx-background-size: cover;
              -fx-background-position: center;
-             -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AnimalController">
+             -fx-background-repeat: no-repeat;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnimalController">
     <children>
         <Label style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: black;" text="MON ÉLEVAGE" />
 

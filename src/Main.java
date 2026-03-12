@@ -1,3 +1,4 @@
+import controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +18,7 @@ public class Main extends Application {
         primaryStage.setTitle("Emerald Valley");
         primaryStage.setScene(new Scene(root, 1080, 720));
 
-        // Save quand on ferme la fenêtre
+        // utils.Save quand on ferme la fenêtre
         primaryStage.setOnCloseRequest(event -> {
             controller.saveGame();
         });
