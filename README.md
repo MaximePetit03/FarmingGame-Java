@@ -67,4 +67,3 @@
     ```
 
 ---
-<p align="center">Développé avec ❤️ dans le cadre d'un projet académique Java</p>
